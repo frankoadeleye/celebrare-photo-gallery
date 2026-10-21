@@ -1,103 +1,163 @@
-# Stillframe - Photo Gallery
+# Photo Gallery
 
-A responsive photo gallery built with React, Vite, and Tailwind CSS.
-The application retrieves photos from the Picsum Photos API, supports
-real-time author search, and saves favourite photos between refreshes.
+A responsive photo gallery built with React, Vite, and Tailwind CSS as part of the Celebrare Frontend React Internship screening assignment.
+
+The application fetches 30 photographs from the Picsum Photos API, supports real-time author search, and allows users to save favourite photos with persistence across page refreshes.
+
+## Live Demo
+
+**Live Application:** [Replace with your Netlify URL]
+
+**GitHub Repository:** https://github.com/frankoadeleye/celebrare-photo-gallery
 
 ## Features
 
 - Fetches 30 photos from the Picsum Photos API.
-- Loading and error states.
-- Responsive photo grid: one, two, or four columns.
-- Case-insensitive, client-side author search.
-- Favourite toggling managed by useReducer.
-- Favourite persistence using localStorage.
-- Custom useFetchPhotos hook.
-- useCallback for the search handler.
-- useMemo for the filtered photo list.
-- Accessible labels and keyboard focus styles.
+- Displays loading placeholders while images load.
+- Handles API failures and individual image-loading errors.
+- Responsive photo grid with one column on mobile, two on tablet, and four on desktop.
+- Case-insensitive, client-side author search without additional API requests.
+- Interactive heart buttons for adding and removing favourites.
+- Favourite state managed with React's `useReducer`.
+- Favourite persistence using browser `localStorage`.
+- Custom `useFetchPhotos` hook for separating data fetching from presentation.
+- `useCallback` for memoizing event handler functions.
+- `useMemo` for memoizing the filtered photo list.
+- Accessible button labels, status feedback, and keyboard focus styles.
 
 ## Technology Stack
 
 - React
 - Vite
 - JavaScript
-- Tailwind CSS
+- Tailwind CSS v4
 - Picsum Photos API
-- Browser localStorage
+- React Hooks
+- Browser `localStorage`
 
-## Prerequisites
+## Getting Started
 
-Install a supported Node.js version and npm.
+### Prerequisites
 
-## Installation
+Install Node.js and npm.
 
-Clone this repository and enter the project directory:
+### Installation
 
-    git clone https://github.com/frankoadeleye/celebrare-photo-gallery
-    cd celebrare-photo-gallery
-    npm install
+Clone the repository and navigate into the project directory:
 
-## Development
+```bash
+git clone https://github.com/frankoadeleye/celebrare-photo-gallery.git
+cd celebrare-photo-gallery
+npm install
+```
 
-    npm run dev
+### Development Server
 
-Open the local URL printed by Vite.
+Start the local development server:
 
-## Production Build
+```bash
+npm run dev
+```
 
-    npm run build
-    npm run preview
+Open the local URL printed by Vite in your browser.
+
+### Production Build
+
+Build the application for production:
+
+```bash
+npm run build
+```
+
+To preview the production build locally:
+
+```bash
+npm run preview
+```
 
 ## Project Structure
 
-- `src/components/`: Gallery and reusable visual components.
-- `src/hooks/useFetchPhotos.js`: Remote photo retrieval and request states.
-- `src/reducers/favouritesReducer.js`: Favourite state transitions.
-- `src/utils/storage.js`: Reading and writing favourites in localStorage.
-- `src/App.jsx`: Page composition.
-- `src/main.jsx`: React entry point.
-- `src/index.css`: Tailwind import and global styles.
+```text
+src/
+├── components/
+│   ├── ErrorMessage.jsx
+│   ├── Gallery.jsx
+│   ├── LoadingSpinner.jsx
+│   ├── PhotoCard.jsx
+│   └── SearchBar.jsx
+├── hooks/
+│   └── useFetchPhotos.js
+├── reducers/
+│   └── favouritesReducer.js
+├── utils/
+│   └── storage.js
+├── App.jsx
+├── index.css
+└── main.jsx
+```
 
-## Data Fetching
+- `components/`: Reusable gallery, photo card, search, loading, and error UI components.
+- `hooks/useFetchPhotos.js`: Fetches photos and manages loading and error states.
+- `reducers/favouritesReducer.js`: Handles favourite state transitions.
+- `utils/storage.js`: Loads and saves favourite IDs in `localStorage`.
+- `App.jsx`: Defines the main page layout.
+- `index.css`: Imports Tailwind CSS and defines global styles.
+- `main.jsx`: Application entry point.
 
-The application requests:
+## Data Fetching and Error Handling
+
+The application fetches its photo data from:
 
 https://picsum.photos/v2/list?limit=30
 
-The `useFetchPhotos` hook returns `photos`, `loading`, and `error`.
-It checks HTTP response status, handles failures, and aborts an outstanding
-request during cleanup.
+The custom `useFetchPhotos` hook returns three values:
 
-## Search
+- `photos`: The retrieved photo data.
+- `loading`: Indicates whether the request is in progress.
+- `error`: Holds error information when the request fails.
 
-Search filters the photos already loaded in memory by author name.
-It does not request new data from the API.
+The hook checks the HTTP response status, handles request failures, and uses an `AbortController` to cancel an outstanding request during effect cleanup.
 
-`useCallback` memoizes the search handler. `useMemo` memoizes the filtered
-photo list until its photo data or search term changes.
+Image loading is handled separately in the photo card, with a loading placeholder and a fallback message if an image fails to load.
 
-## Favourites
+## Search and Performance Hooks
 
-`favouritesReducer` handles the `TOGGLE_FAVOURITE` action. Photo IDs are
-stored as strings to ensure consistent comparisons. The reducer returns
-new arrays rather than mutating existing state.
+Author search filters the photos already retrieved from the API. Typing a search term does not trigger another network request.
 
-The application loads persisted favourite IDs from localStorage when
-initialising the reducer and saves changes as the list updates. Invalid
-stored data is handled safely.
+- `useCallback` memoizes the search and favourite handler functions while their dependencies remain unchanged.
+- `useMemo` memoizes the filtered photo list and recalculates it when its dependencies change.
 
-## Screenshots
+These hooks demonstrate React's memoization features. They are used as performance optimizations and are not required for the basic search or favourite functionality to work correctly.
 
-Add genuine screenshots after running and testing the application.
+## Favourite Management and Persistence
 
-## Testing
+The `favouritesReducer` handles the `TOGGLE_FAVOURITE` action.
 
-Verify loading and error states, author search, responsive grid layout,
-favourite toggling, and persistence after a page refresh. Run `npm run build`
-before submission.
+When a photo is selected, its ID is added to the favourites if it is not already present. If it is already a favourite, its ID is removed. The reducer returns new arrays rather than mutating existing state.
+
+Favourite IDs are stored as strings to ensure consistent comparisons.
+
+The application initializes the reducer using saved favourite IDs from `localStorage` and persists changes as the favourites list updates. This allows favourites to remain available after a page refresh in the same browser and site origin.
+
+## Deployment
+
+The application is deployed on Netlify using the production build generated by Vite.
+
+- Build command: `npm run build`
+- Publish directory: `dist`
+
+## Verification Checklist
+
+Before submission, verify the following:
+
+- Photos load successfully.
+- Loading and error states are handled.
+- Author search filters the existing photos.
+- Favourite buttons add and remove photos correctly.
+- Saved favourites persist after refreshing the page.
+- The layout adapts to mobile, tablet, and desktop screen sizes.
+- The production build completes successfully with `npm run build`.
 
 ## Assignment
 
-Built as a pre-screening assignment for the Celebrare Frontend React
-Internship.
+Developed as a frontend screening assignment for the Celebrare Frontend React Internship.
