@@ -27,7 +27,7 @@ export default function SearchBar({ value, onChange }) {
           value={value}
           onChange={(event) => onChange(event.target.value)}
           placeholder="Try searching for a photographer..."
-          className="w-full rounded-xl border border-zinc-200 bg-white py-3.5 pl-12 pr-4 text-sm text-zinc-900 shadow-sm transition placeholder:text-zinc-400 hover:border-zinc-300 focus:border-violet-500 focus:outline-none focus:ring-4 focus:ring-violet-100"
+          className="w-full rounded-xl border border-zinc-200 bg-white py-3.5 pl-12 pr-4 text-sm text-zinc-900 shadow-sm transition placeholder:text-zinc-400 hover:border-zinc-300 focus:border-rose-700 focus:outline-none focus:ring-4 focus:ring-rose-100"
         />
       </div>
     </div>

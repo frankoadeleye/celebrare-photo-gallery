@@ -50,7 +50,7 @@ export default function Gallery() {
     <section aria-label="Photo gallery">
       <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-violet-700">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-rose-900">
             The collection
           </p>
 

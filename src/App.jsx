@@ -2,15 +2,11 @@ import Gallery from "./components/Gallery";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#fafafa]">
-      <header className="border-b border-zinc-200/80 bg-white">
+    <div className="min-h-screen bg-[#faf9f7]">
+      <header className="border-b border-stone-200/80 bg-white">
         <div className="mx-auto flex max-w-[1600px] items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
-          <a
-            href="/"
-            className="flex items-center gap-3"
-            aria-label="Stillframe home"
-          >
-            <span className="flex size-10 items-center justify-center rounded-xl bg-zinc-950 text-white">
+          <div className="flex items-center gap-3">
+            <span className="flex size-10 items-center justify-center rounded-xl bg-rose-900 text-white">
               <svg
                 viewBox="0 0 24 24"
                 className="size-5"
@@ -26,45 +22,47 @@ export default function App() {
             </span>
 
             <span>
-              <span className="block text-lg font-bold tracking-tight text-zinc-950">
-                Stillframe
+              <span className="block text-lg font-bold tracking-tight text-stone-900">
+                Photo Gallery
               </span>
-              <span className="block text-xs text-zinc-500">
-                A world of photographs
+              <span className="block text-xs text-stone-500">
+                A collection of moments
               </span>
             </span>
-          </a>
+          </div>
 
-          <span className="hidden rounded-full border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-600 sm:inline-flex">
-            Photo gallery
+          <span className="hidden rounded-full border border-stone-200 px-3 py-1.5 text-xs font-medium text-stone-600 sm:inline-flex">
+            Photography collection
           </span>
         </div>
       </header>
 
       <main className="mx-auto max-w-[1600px] px-5 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
         <div className="mb-10 max-w-3xl sm:mb-14">
-          <p className="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-violet-700">
-            <span className="size-2 rounded-full bg-violet-600" />A little
-            inspiration
+          <p className="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-rose-900">
+            <span className="size-2 rounded-full bg-rose-800" />
+            The art of a moment
           </p>
 
-          <h1 className="text-4xl font-semibold tracking-tight text-zinc-950 sm:text-5xl lg:text-6xl">
-            Moments worth
-            <span className="block text-zinc-400">looking at twice.</span>
+          <h1 className="text-4xl font-semibold tracking-tight text-stone-950 sm:text-5xl lg:text-6xl">
+            Every picture
+            <span className="block font-normal italic text-rose-900">
+              tells a story.
+            </span>
           </h1>
 
-          <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-600 sm:text-lg">
-            Explore a collection of photographs, discover the people behind
-            them, and keep the images you love close.
+          <p className="mt-5 max-w-2xl text-base leading-7 text-stone-600 sm:text-lg">
+            Discover beautiful photographs, meet the artists behind them, and
+            save the moments that speak to you.
           </p>
         </div>
 
         <Gallery />
       </main>
 
-      <footer className="border-t border-zinc-200 bg-white">
-        <div className="mx-auto max-w-[1600px] px-5 py-6 text-center text-xs text-zinc-500 sm:px-8 lg:px-12">
-          Stillframe · A photo gallery powered by the Picsum Photos API
+      <footer className="border-t border-stone-200 bg-white">
+        <div className="mx-auto max-w-[1600px] px-5 py-6 text-center text-xs text-stone-500 sm:px-8 lg:px-12">
+          Photo Gallery · Frontend Internship Assignment
         </div>
       </footer>
     </div>
